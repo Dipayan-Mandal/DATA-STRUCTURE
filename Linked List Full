@@ -1,0 +1,200 @@
+#include<stdio.h>
+#include<stdlib.h>	
+struct node
+{
+	int data;
+	struct node *next;
+}*head=0;
+struct node* createnode()
+{
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	return newnode;
+}
+void insertfirstnode()
+{
+	struct node *newnode=createnode();
+	printf("enter data u want to insert ");
+	scanf("%d",&newnode->data);
+	newnode->next=head;
+	head=newnode;
+}
+void insertLastnode()
+{
+	struct node *temp;
+	struct node *newnode=createnode();
+	scanf("%d",&newnode->data);
+	newnode->next=0;
+	temp=head;
+	while(temp->next!=0)
+	{
+		temp=temp->next;
+	}
+	temp->next=newnode;
+}
+void insertfromPos()
+{
+	struct node *temp;
+	struct node *newnode=createnode();
+	int pos,i=1;
+	//newnode->next=0;
+	printf("Enter position ");
+	scanf("%d",&pos);
+	temp=head;
+	while(i<pos-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	printf("Enter data ");
+	scanf("%d",&newnode->data);
+	newnode->next=temp->next;
+	temp->next=newnode;
+}
+void deletefirstnode()
+{
+	struct node *temp;
+	if(head==0)
+	printf("List is empty");
+	else
+	{
+		temp=head;
+		head=head->next;
+		free(temp);
+	}
+}
+void deletefromend()
+{
+	struct node *prevnode,*temp;
+	temp=head;
+	while(temp->next!=0)
+	{
+		prevnode=temp;
+		temp=temp->next;
+	}
+	if(temp==head)
+	{
+		head=0;
+	}
+	else
+	{
+		prevnode->next=0;
+	}
+	free(temp);
+}
+void deletefromPos()
+{
+	struct node *nextnode,*temp;
+	int pos,i=1;
+	temp=head;
+	puts("Enter position ");
+	scanf("%d",&pos);
+	while(i<pos-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	nextnode=temp->next;
+	temp->next=nextnode->next;
+	free(nextnode);
+}
+void getlength()
+{
+	int count=0;
+	struct node* temp;
+	temp=head;
+	while(temp!=0)
+	{
+		count++;
+		temp=temp->next;
+	}
+	printf("Length is %d ",count);
+}
+void reverse()
+{
+	struct node *prevnode,*currentnode,*nextnode;
+	prevnode=0;
+	currentnode=nextnode=head;
+	while(nextnode!=0)
+	{
+		nextnode=nextnode->next;
+		currentnode->next=prevnode;
+		prevnode=currentnode;
+		currentnode=nextnode;
+	}
+	head=prevnode;
+}
+void viewlist()
+{
+	struct node *temp;
+	if(head==0)
+	printf("list is empty");
+	else
+	{
+		temp=head;
+		while(temp!=0)
+		{
+			printf("%d ",temp->data);
+			temp=temp->next;
+		}
+	}
+}
+
+
+int menu()
+{
+	int ch;
+	printf("\n1. add value to the list ");
+	printf("\n2. add last value to the list ");
+	printf("\n3. add value to any position list ");
+	printf("\n4. delete first value ");
+	printf("\n5. delete last value ");
+	printf("\n6. delete your position value ");
+	printf("\n7. Length of linkedlist ");
+	printf("\n8. Reverse the list ");
+	printf("\n9. view list ");
+	printf("\n10. exit ");
+	printf("\n\n enter your choice ");
+	scanf("%d",&ch);
+	return ch;
+}
+int main()
+{
+	while(1)
+	{
+		switch(menu())
+		{
+			case 1:
+				insertfirstnode();
+				break;
+			case 2:
+				insertLastnode();
+				break;
+			case 3:
+				insertfromPos();
+				break;
+			case 4:
+				deletefirstnode();
+				break;
+			case 5:
+				deletefromend();
+				break;
+			case 6:
+				deletefromPos();
+				break;
+			case 7:
+				getlength();
+				break;
+			case 8:
+				reverse();
+				break;
+			case 9:
+				viewlist();
+				break;
+			case 10:
+				exit(0);
+			default:
+				printf("invalid choice");
+		}
+	}
+}
