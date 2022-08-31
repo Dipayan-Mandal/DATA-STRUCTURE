@@ -1,0 +1,110 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front=0;
+struct node *rear=0;
+void enqueue()
+{
+	struct node *newnode;
+	newnode=(struct node *)malloc(sizeof(struct node));
+	int x;
+	printf("Enter the value u want to insert ");
+	scanf("%d",&x);
+	newnode->data=x;
+	newnode->next=0;
+	if(front==0 && rear==0)
+	{
+		front=rear=newnode;
+	}
+	else
+	{
+		rear->next=newnode;
+		rear=newnode;
+	}
+}
+void display()
+{
+	struct node *temp;
+	struct node *newnode;
+	if(front==0 && rear==0)
+	{
+		front=rear=newnode;
+	}
+	else
+	{
+		temp=front;
+		while(temp!=0)
+		{
+			printf("%d",temp->data);
+			temp=temp->next;
+		}
+	}
+}
+void dequeue()
+{
+	struct node *temp;
+	struct node *newnode;
+	temp=front;
+	if(front==0 && rear==0)
+	{
+		front=rear=newnode;
+	}
+	else
+	{
+		printf("%d",front->data);
+		front=front->next;
+		free(temp);
+	}
+}
+void peek()
+{
+	struct node *newnode;
+	if(front==0 && rear==0)
+	{
+		front=rear=newnode;
+	}
+	else
+	{
+		printf("%d ",front->data);
+	}
+}
+int menu()
+{
+	int ch;
+	printf("\n1. Insert the value ");
+	printf("\n2. pop the value ");
+	printf("\n3. peek the value");
+	printf("\n4. Display the values ");
+	printf("\n5. exit ");
+	printf("\n\n enter your choice ");
+	scanf("%d",&ch);
+	return ch;
+}
+int main()
+{
+	while(1)
+	{
+		switch(menu())
+		{
+			case 1:
+				enqueue();
+				break;
+			case 2:
+				dequeue();
+				break;
+			case 3:
+				peek();
+				break;
+			case 4:
+				display();
+				break;
+			case 5:
+				exit(0);
+				break;
+		}
+	}
+}
