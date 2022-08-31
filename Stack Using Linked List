@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *top=NULL;
+void push()
+{
+	int a;
+	printf("Enter data  ");
+	scanf("%d",&a);
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=a;
+    newnode->next=top;
+    top=newnode;
+}
+void display()   
+
+{
+    struct node *temp;
+    temp=top;
+    if(top==NULL)
+    {
+        printf("stack is empty");
+    }
+    else
+    {
+        while(temp!=NULL)
+        {
+            printf("%d ",temp->data);
+            temp=temp->next;
+        }
+    }
+}
+void peek()
+{
+	if(top==0)
+	{
+		puts("List is empty");
+	}
+	else
+	{
+	printf("Peek value is %d \n",top->data);
+	}
+}
+void pop()
+{
+	struct node *temp;
+	temp=top;
+	if(top==0)
+	{
+		puts("List is empty");
+	}
+	else
+	{
+		//printf(" %d ",top->data);
+		top=top->next;
+		free(temp);
+	}
+}
+int menu()
+{
+	int ch;
+	puts("\n1. Enter top value ");
+	puts("\n2. Enter to pop value ");
+	puts("\n3. T0 see peek value ");
+	printf("\n4. view list \n");
+	printf("\n5. exit ");
+	printf("\n\n enter your choice ");
+	scanf("%d",&ch);
+	return ch;
+}
+int main()
+{
+	while(1)
+	{
+		switch(menu())
+		{
+			case 1:
+				push();
+				break;
+			case 2:
+				pop();
+				break;
+			case 3:
+				peek();
+				break;
+			case 4:
+				display();
+				break;
+			case 5:
+				exit(0);
+				break;
+		}
+	}
+}
