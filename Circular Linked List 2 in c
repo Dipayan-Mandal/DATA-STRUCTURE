@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct node
 {
     int data;
@@ -202,6 +201,29 @@ void reverse()
     tail = nextnode;
 }
 
+void newtest()
+{
+	struct node *temp,*prev;
+	temp=tail->next;
+	int i=1,pos;
+	printf("Enter the position ");
+	scanf("%d",&pos);
+	while(i<pos)
+	{
+		prev=temp;
+		temp=temp->next;
+		i++;
+	}
+	while(temp!=prev)
+	{
+		printf("%d\t",temp->data);
+		temp=temp->next;
+	}
+	printf("%d",prev->data);
+}
+
+
+
 void display()
 {
    if(tail==0)
@@ -232,7 +254,8 @@ int menu()
 	printf("\n7. Enter 7 to Delete from position ");
 	printf("\n8. Enter 8 to Reverse The List ");
 	printf("\n9. Enter 9 to Display List ");
-	printf("\n10. Enter 10 to exit ");
+	printf("\n10. Enter 10 to do new test ");
+	printf("\n11. Enter 11 to exit ");
 	printf("\n\n Enter your choise ");
 	scanf("%d",&ch);
 	return ch;
@@ -262,11 +285,12 @@ int main()
            			break;
             case 9: display();
                     break;
-            case 10: exit(0);
+            case 10:newtest();
+            		break;
+            case 11: exit(0);
             		break;
             		
             default: printf("INVALID CHOICE");
         }
     }
 }
-
