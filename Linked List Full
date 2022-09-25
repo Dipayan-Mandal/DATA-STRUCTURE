@@ -110,6 +110,26 @@ void getlength()
 	}
 	printf("Length is %d ",count);
 }
+
+void delnnode()
+{
+	int length=getlength();
+	struct node *nextnode,*temp;
+	int pos,i=1;
+	temp=head;
+	puts("\nEnter position ");
+	scanf("%d",&pos);
+	while(i<(length-(pos-1))-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	nextnode=temp->next;
+	temp->next=nextnode->next;
+	free(nextnode);
+}
+
+
 void reverse()
 {
 	struct node *prevnode,*currentnode,*nextnode;
@@ -153,7 +173,8 @@ int menu()
 	printf("\n7. Length of linkedlist ");
 	printf("\n8. Reverse the list ");
 	printf("\n9. view list ");
-	printf("\n10. exit ");
+	printf("\n10. Remove Nth Node From End of List ");
+	printf("\n11. exit ");
 	printf("\n\n enter your choice ");
 	scanf("%d",&ch);
 	return ch;
@@ -192,6 +213,9 @@ int main()
 				viewlist();
 				break;
 			case 10:
+				delnnode();
+				break;
+			case 11:
 				exit(0);
 			default:
 				printf("invalid choice");
