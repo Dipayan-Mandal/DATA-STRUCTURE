@@ -1,0 +1,243 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+	int data;
+	struct node *prev;
+	struct node *next;
+}*head=0,*tail;
+
+struct node *createnode()
+{
+	struct node *newnode;
+	newnode=(struct node *)malloc(sizeof(struct node));
+	return newnode;
+}
+
+void createDLL()
+{
+	struct node *newnode=createnode();
+	struct node *temp=head;
+	printf("Enter the data ");
+	scanf("%d",&newnode->data);
+	newnode->next=0;
+	newnode->prev=0;
+	if(head==0)
+	{
+		head=tail=newnode;
+	}
+	else
+	{
+		tail->next=newnode;
+		newnode->prev=tail;
+		tail=newnode;
+	}
+}
+
+void insertatbeg()
+{
+	struct node *newnode=createnode();
+	printf("Enter the data ");
+	scanf("%d",&newnode->data);
+	newnode->next=0;
+	newnode->prev=0;
+	head->prev=newnode;
+	newnode->next=head;
+	head=newnode;
+}
+
+void insertatend()
+{
+	struct node *newnode=createnode();
+	printf("Enter the data ");
+	scanf("%d",&newnode->data);
+	newnode->next=0;
+	newnode->prev=0;
+	tail->next=newnode;
+	newnode->prev=tail;
+	tail=newnode;
+}
+
+void insertatpos()
+{
+	struct node *newnode=createnode();
+	struct node *temp=head;
+	int i=1,pos;
+	printf("Enter the position ");
+	scanf("%d",&pos);
+	printf("Enter data ");
+	scanf("%d",&newnode->data);
+	if(pos==1)
+	{
+		insertatbeg();
+	}
+	while(i<pos-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	newnode->prev=temp;
+	newnode->next=temp->next;
+	temp->next=newnode;
+	temp->next->prev=newnode;
+}
+
+void delatbeg()
+{
+	struct node *temp;
+	if(head==0)
+	{
+		puts("List is empty ");
+	}
+	else
+	{
+	temp=head;
+	head=head->next;
+	head->prev=0;
+	free(temp);
+	}
+}
+
+void delatend()
+{
+	struct node *temp;
+	if(head==0)
+	{
+		puts("List is empty ");
+	}
+	else
+	{
+		temp=tail;
+		tail->prev->next=0;
+		tail=tail->prev;
+		free(temp);
+	}
+}
+
+void delatpos()
+{
+	struct node *newnode=createnode();
+	struct node *temp=head;
+	int i=1,pos;
+	printf("Enter the position ");
+	scanf("%d",&pos);
+	newnode->next=0;
+	newnode->prev=0;
+	while(i<pos-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	if(pos==1)
+	{
+		delatbeg();
+	}
+	else
+	{
+		temp->next=temp->next->next;
+		temp->next->prev=temp;
+	}
+}
+
+void getlength()
+{
+	int count=0;
+	struct node *temp=head;
+	while(temp!=0)
+	{
+		count++;
+		temp=temp->next;
+	}
+	printf("The length of the list is %d ",count);
+}
+
+
+void reverse()
+{
+	struct node *curr,*nextnode;
+	curr=head;
+	while(curr!=0)
+	{
+		nextnode=curr->next;
+		curr->next=curr->prev;
+		curr->prev=nextnode;
+		curr=nextnode;
+	}
+	curr=head;
+	head=tail;
+	tail=curr;
+}
+
+void display()
+{
+	struct node *temp=head;
+	while(temp!=0)
+	{
+		printf("%d\t",temp->data);
+		temp=temp->next;
+	}
+}
+
+int menu()
+{
+	int ch;
+	printf("\n1. press 1 to create list");
+	printf("\n2. press 2 to insert at first ");
+	printf("\n3. press 3 to insert at last ");
+	printf("\n4. Enter 4 to insert at position ");
+	printf("\n5. enter 5 to delete the first ");
+	printf("\n6. enter 6 to delete the last ");
+	printf("\n7. enter 7 to delete at position ");
+	printf("\n8. enter 8 to see the length ");
+	printf("\n9. enter 9 to reverse the list ");
+	printf("\n10. enter 10 to display list ");
+	printf("\n11. press 11 to exit ");
+	printf("\n\n Enter ur choise\n");
+	scanf("%d",&ch);
+	return ch;
+}
+
+
+int main()
+{
+	while(1)
+	{
+		switch(menu())
+		{
+			case 1:
+				createDLL();
+				break;
+			case 2:
+				insertatbeg();
+				break;
+			case 3:
+				insertatend();
+				break;
+			case 4:
+				insertatpos();
+				break;
+			case 5:
+				delatbeg();
+				break;
+			case 6:
+				delatend();
+				break;
+			case 7:
+				delatpos();
+				break;
+			case 8:
+				getlength();
+				break;
+			case 9:
+				reverse();
+				break;
+			case 10:
+				display();
+				break;
+			case 11:
+				exit(0);
+				break;
+		}
+	}	
+}
