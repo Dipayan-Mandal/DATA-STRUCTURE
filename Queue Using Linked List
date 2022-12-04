@@ -32,7 +32,7 @@ void display()
 	struct node *newnode;
 	if(front==0 && rear==0)
 	{
-		front=rear=newnode;
+		printf("List is empty ");
 	}
 	else
 	{
@@ -51,7 +51,7 @@ void dequeue()
 	temp=front;
 	if(front==0 && rear==0)
 	{
-		front=rear=newnode;
+		printf("List is empty ");
 	}
 	else
 	{
